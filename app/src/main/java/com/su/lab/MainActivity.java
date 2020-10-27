@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -18,6 +19,8 @@ import android.widget.SimpleCursorAdapter;
 import androidx.core.content.ContextCompat;
 
 public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
+
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     private final static String[] FROM_COLUMNS = {
             ContactsContract.Contacts.DISPLAY_NAME_PRIMARY
@@ -98,14 +101,21 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
         Cursor cursor = cursorAdapter.getCursor();
         cursor.moveToPosition(position);
         long contactId = cursor.getLong(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-        openDetailsActivity(contactId);
+
+        String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+        openDetailsActivity(contactId, name);
     }
 
-    private void openDetailsActivity(long contactId) {
+    private void openDetailsActivity(long contactId, String name) {
         /*
          * TODO #1 Реализовать открытие DetailsActivity через Intent
          *  https://developer.android.com/training/basics/firstapp/starting-activity
          *  и передать contactId через extra
          */
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, contactId);
+        intent.putExtra(EXTRA_MESSAGE, name);
+        startActivity(intent);
     }
 }
