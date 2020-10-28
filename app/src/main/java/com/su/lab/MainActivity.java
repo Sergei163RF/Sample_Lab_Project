@@ -18,6 +18,9 @@ import android.widget.SimpleCursorAdapter;
 
 import androidx.core.content.ContextCompat;
 
+import static com.su.lab.DetailsActivity.CONTACT_ID_EXTRA;
+import static com.su.lab.DetailsActivity.NAME_EXTRA;
+
 public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
 
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -114,8 +117,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
          *  и передать contactId через extra
          */
         Intent intent = new Intent(this, DetailsActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, contactId);
-        intent.putExtra(EXTRA_MESSAGE, name);
+        intent.putExtra(CONTACT_ID_EXTRA, contactId);
+        intent.putExtra(NAME_EXTRA, name);
         startActivity(intent);
     }
 }
